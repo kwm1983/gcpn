@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-barlow: 'Barlow', sans-serif;
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-barlow-condensed: 'Barlow Condensed', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-barlow);
+  background: #0A1628;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0A1628; }
+::-webkit-scrollbar-thumb { background: #00C9B1; border-radius: 3px; }
+
+/* Focus ring */
+*:focus-visible { outline: 2px solid #00C9B1; outline-offset: 2px; }
+
+@layer components {
+  .btn-primary {
+    @apply bg-coral text-white font-condensed tracking-widest uppercase px-6 py-3 rounded-lg
+           hover:bg-opacity-90 transition-all duration-200 hover:-translate-y-0.5
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+  .btn-teal {
+    @apply bg-teal text-navy font-condensed tracking-widest uppercase px-6 py-3 rounded-lg
+           hover:bg-opacity-90 transition-all duration-200 hover:-translate-y-0.5
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-outline {
+    @apply border border-white/20 text-white font-condensed tracking-widest uppercase px-6 py-3
+           rounded-lg hover:border-teal hover:text-teal transition-all duration-200;
+  }
+  .input {
+    @apply w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3
+           text-white placeholder-muted/60 font-sans text-sm
+           focus:border-teal focus:outline-none transition-colors duration-200;
+  }
+  .select {
+    @apply w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3
+           text-white font-sans text-sm cursor-pointer appearance-none
+           focus:border-teal focus:outline-none transition-colors duration-200;
+  }
+  .card {
+    @apply bg-card border border-white/[0.06] rounded-2xl;
+  }
+  .section-eyebrow {
+    @apply font-condensed text-xs tracking-[4px] uppercase text-coral mb-2;
+  }
+  .section-title {
+    @apply font-display text-4xl md:text-5xl tracking-wider text-white;
+  }
+  .label {
+    @apply block font-condensed text-xs tracking-widest uppercase text-muted mb-1.5;
+  }
+}
