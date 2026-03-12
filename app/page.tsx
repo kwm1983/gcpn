@@ -218,6 +218,7 @@ export default async function Home() {
           <span className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/about" className="hover:text-white transition-colors">About</Link>
             <Link href="mailto:support@gulfcoastproductionnetwork.com" className="hover:text-white transition-colors">Contact</Link>
           </span>
           <span className="flex items-center gap-1.5">
