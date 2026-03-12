@@ -1,5 +1,12 @@
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Media Production Jobs | Gulf Coast Production Network',
+  description: 'Browse open video, photo and media production jobs across the Gulf Coast. Find work as a videographer, photographer, audio engineer, drone operator and more.',
+  alternates: { canonical: 'https://gulfcoastproductionnetwork.com/jobs' },
+}
 
 const ROLES = [
   'All Roles','Videographer','Photographer','Director / Producer',

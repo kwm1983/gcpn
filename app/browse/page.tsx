@@ -1,6 +1,13 @@
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 import ProCard from '@/components/ProCard'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Browse Media Professionals | Gulf Coast Production Network',
+  description: 'Search and hire videographers, photographers, directors, audio engineers, drone operators and more across the Gulf Coast — Tallahassee, Pensacola, Mobile, Biloxi, New Orleans.',
+  alternates: { canonical: 'https://gulfcoastproductionnetwork.com/browse' },
+}
 
 const SPECIALTIES = [
   'All Specialties','Broadcast Camera','Director / Producer','Photography',

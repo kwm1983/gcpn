@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+Host: https://gulfcoastproductionnetwork.com
+Sitemap: https://gulfcoastproductionnetwork.com/sitemap.xml
