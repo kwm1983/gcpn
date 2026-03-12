@@ -215,6 +215,11 @@ export default async function Home() {
         </div>
         <div className="max-w-6xl mx-auto border-t border-white/[0.06] pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-muted">
           <span>© {new Date().getFullYear()} Gulf Coast Production Network · gulfcoastproductionnetwork.com</span>
+          <span className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="mailto:support@gulfcoastproductionnetwork.com" className="hover:text-white transition-colors">Contact</Link>
+          </span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-teal" />
             <span className="w-1.5 h-1.5 rounded-full bg-coral" />
