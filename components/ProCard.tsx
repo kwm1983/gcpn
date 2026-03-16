@@ -26,7 +26,7 @@ export default function ProCard({ pro }: ProCardProps) {
   return (
     <Link href={`/profile/${pro.id}`} className="card hover:border-teal/40 hover:-translate-y-1 transition-all duration-200 block group overflow-hidden">
       {/* Cover */}
-      <div className="h-24 bg-gradient-to-br from-navy2 to-card flex items-center justify-center text-5xl opacity-60">
+      <div className="h-24 bg-gradient-to-br from-navy2 to-card flex items-center justify-center text-5xl opacity-60" role="img" aria-label={`${pro.specialty || 'Media'} professional`}>
         {pro.specialty?.includes('photo') ? '📸' :
          pro.specialty?.includes('audio') ? '🎙️' :
          pro.specialty?.includes('drone') ? '🚁' :

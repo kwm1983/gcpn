@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   creator: 'Gulf Coast Production Network',
   publisher: 'Gulf Coast Production Network',
   formatDetection: { email: false, address: false, telephone: false },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -54,6 +58,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/* Preconnect for faster font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+        {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-XRCYX39SK5"></script>
         <script dangerouslySetInnerHTML={{ __html: `
           window.dataLayer = window.dataLayer || [];
@@ -61,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('js', new Date());
           gtag('config', 'G-XRCYX39SK5');
         `}} />
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -69,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'Organization',
               name: 'Gulf Coast Production Network',
               url: 'https://gulfcoastproductionnetwork.com',
+              logo: 'https://gulfcoastproductionnetwork.com/og-image.png',
               description: 'The Gulf Coast\'s premier directory for video, audio, photo & media production professionals.',
               areaServed: [
                 'Tallahassee, FL', 'Pensacola, FL', 'Panama City, FL',
@@ -79,6 +90,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'Video Production', 'Photography', 'Audio Engineering',
                 'Drone Operation', 'Film Production', 'Social Media Content'
               ],
+              sameAs: [
+                'https://gulfcoastproductionnetwork.com'
+              ]
             })
           }}
         />
@@ -100,6 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.75rem' }}>
               <a href="/privacy" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Privacy Policy</a>
               <a href="/terms" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Terms of Service</a>
+              <a href="/about" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>About</a>
               <a href="mailto:support@gulfcoastproductionnetwork.com" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Contact</a>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.7rem' }}>

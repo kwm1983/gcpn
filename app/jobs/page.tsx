@@ -162,8 +162,9 @@ export default async function JobsPage({
 
                       <div className="mt-3 flex gap-2">
                         <a
-                          href={`mailto:${job.contact_email}?subject=Re: ${encodeURIComponent(job.title)}`}
+                          href={`mailto:${job.contact_email}?subject=Re: ${encodeURIComponent(job.title)}&body=Hi, I saw your job posting on Gulf Coast Production Network and I'm interested in the ${job.role_needed} position. `}
                           className="btn-primary text-xs py-1.5 px-4"
+                          aria-label={`Contact client about ${job.title}`}
                         >
                           Contact Client
                         </a>
@@ -171,11 +172,15 @@ export default async function JobsPage({
                           <a
                             href={`tel:${job.contact_phone}`}
                             className="btn-outline text-xs py-1.5 px-4"
+                            aria-label="Call client"
                           >
                             Call
                           </a>
                         )}
                       </div>
+                      {job.contact_name && (
+                        <p className="text-muted text-xs mt-2">Posted by: {job.contact_name}</p>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -201,14 +201,31 @@ export default async function Home() {
             <p className="text-muted text-sm leading-relaxed">Connecting media professionals from Tallahassee to New Orleans. The Gulf Coast's home for production talent.</p>
           </div>
           {[
-            { head: 'Find Talent', links: ['Browse All Pros', 'Videographers', 'Photographers', 'Audio Engineers', 'Video Editors'] },
-            { head: 'For Pros', links: ['Create Profile', 'How It Works', 'Pricing', 'Verification'] },
-            { head: 'Regions', links: ['Tallahassee, FL', 'Pensacola, FL', 'Mobile, AL', 'Biloxi / Gulfport', 'New Orleans, LA'] },
+            { head: 'Find Talent', links: [
+              { label: 'Browse All Pros', href: '/browse' },
+              { label: 'Videographers', href: '/browse?specialty=videographer' },
+              { label: 'Photographers', href: '/browse?specialty=photographer' },
+              { label: 'Audio Engineers', href: '/browse?specialty=audio-engineering' },
+              { label: 'Video Editors', href: '/browse?specialty=video-editing' },
+            ]},
+            { head: 'For Pros', links: [
+              { label: 'Create Profile', href: '/auth?mode=signup&type=pro' },
+              { label: 'Job Board', href: '/jobs' },
+              { label: 'About GCPN', href: '/about' },
+              { label: 'Contact Us', href: 'mailto:hello@gulfcoastproductionnetwork.com' },
+            ]},
+            { head: 'Regions', links: [
+              { label: 'Tallahassee, FL', href: '/browse?city=tallahassee' },
+              { label: 'Pensacola, FL', href: '/browse?city=pensacola' },
+              { label: 'Mobile, AL', href: '/browse?city=mobile' },
+              { label: 'Biloxi / Gulfport', href: '/browse?city=biloxi' },
+              { label: 'New Orleans, LA', href: '/browse?city=new-orleans' },
+            ]},
           ].map(col => (
             <div key={col.head}>
               <h4 className="font-condensed text-xs tracking-[3px] uppercase text-teal mb-4">{col.head}</h4>
               {col.links.map(l => (
-                <Link key={l} href="/browse" className="block text-sm text-muted hover:text-white mb-2 transition-colors">{l}</Link>
+                <Link key={l.label} href={l.href} className="block text-sm text-muted hover:text-white mb-2 transition-colors">{l.label}</Link>
               ))}
             </div>
           ))}

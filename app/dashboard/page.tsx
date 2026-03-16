@@ -40,7 +40,7 @@ export default async function DashboardPage() {
             <p className="section-eyebrow">Dashboard</p>
             <h1 className="font-display text-4xl tracking-widest">Welcome, {name?.split(' ')[0]}</h1>
           </div>
-          {isPro && (
+          {isPro && profile?.bio && profile?.specialty && (
             <Link href={`/profile/${user.id}`} className="btn-outline text-sm py-2">View My Profile →</Link>
           )}
         </div>
@@ -101,7 +101,7 @@ export default async function DashboardPage() {
               <div className="flex flex-col gap-2">
                 <Link href="/post-job" className="btn-primary text-center text-sm py-2.5">+ Post a New Job</Link>
                 <Link href="/browse" className="btn-outline text-center text-sm py-2.5">Browse Professionals</Link>
-                {isPro && (
+                {isPro && profile?.bio && profile?.specialty && (
                   <Link href={`/profile/${user.id}`} className="btn-outline text-center text-sm py-2.5">View Public Profile</Link>
                 )}
               </div>
