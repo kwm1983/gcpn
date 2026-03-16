@@ -10,21 +10,42 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
   const [date, setDate] = useState('')
   const [budget, setBudget] = useState('')
   const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim() || !email.trim() || !message.trim()) {
       setError('Please fill in your name, email, and message')
       return
     }
+    setLoading(true)
     setError('')
 
-    const subject = `Project Inquiry via GCPN — ${projectType || 'General Inquiry'}`
-    const body = `Hi ${proName},\n\nYou have a new project inquiry through Gulf Coast Production Network!\n\nFROM: ${name}\nEMAIL: ${email}\nPHONE: ${phone || 'Not provided'}\nPROJECT TYPE: ${projectType || 'Not specified'}\nDATE: ${date || 'Not specified'}\nBUDGET: ${budget || 'Not specified'}\n\nMESSAGE:\n${message}\n\n---\nReply directly to ${email} to connect with this client.\nThis inquiry was sent via gulfcoastproductionnetwork.com`
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          proName,
+          proEmail,
+          fromName: name,
+          fromEmail: email,
+          fromPhone: phone,
+          projectType,
+          date,
+          budget,
+          message,
+        }),
+      })
 
-    window.location.href = `mailto:${proEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSuccess(true)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to send')
+      setSuccess(true)
+    } catch (err: any) {
+      setError(err.message || 'Failed to send. Please try again.')
+    }
+    setLoading(false)
   }
 
   if (!open) {
@@ -39,8 +60,8 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
     return (
       <div className="card p-6 text-center">
         <div className="text-4xl mb-3">📬</div>
-        <h3 className="font-display text-xl tracking-widest mb-2">Almost Done!</h3>
-        <p className="text-muted text-sm">Your email app opened with the inquiry pre-filled. Just hit send to contact {proName}!</p>
+        <h3 className="font-display text-xl tracking-widest mb-2">Message Sent!</h3>
+        <p className="text-muted text-sm">{proName} will receive your inquiry and reply directly to your email.</p>
         <button onClick={() => { setOpen(false); setSuccess(false) }} className="text-teal text-sm mt-4 hover:underline">Close</button>
       </div>
     )
@@ -88,18 +109,26 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
         </div>
         <div>
           <label className="label">Message *</label>
-          <textarea className="input resize-none min-h-[80px]" placeholder="Describe your project..." value={message} onChange={e => setMessage(e.target.value)} />
+          <textarea
+            className="input resize-none min-h-[80px]"
+            placeholder="Describe your project..."
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+          />
         </div>
         {error && <p className="text-coral text-sm bg-coral/10 rounded-lg px-4 py-3">{error}</p>}
         <div className="flex gap-3 mt-1">
-          <button onClick={handleSubmit} className="btn-teal font-condensed tracking-widest uppercase px-6 py-2 flex-1">
-            Send Inquiry
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="btn-teal font-condensed tracking-widest uppercase px-6 py-2 flex-1"
+          >
+            {loading ? 'Sending...' : 'Send Inquiry'}
           </button>
           <button onClick={() => setOpen(false)} className="text-muted text-sm hover:text-white transition-colors">
             Cancel
           </button>
         </div>
-        <p className="text-muted text-xs text-center">This will open your email app with the inquiry pre-filled.</p>
       </div>
     </div>
   )
