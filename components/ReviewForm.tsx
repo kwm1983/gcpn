@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase'
 
 export default function ReviewForm({ proId, proName }: { proId: string, proName: string }) {
@@ -13,19 +13,27 @@ export default function ReviewForm({ proId, proName }: { proId: string, proName:
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [showForm, setShowForm] = useState(false)
+  const [userId, setUserId] = useState<string | null>(null)
 
   const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data.user?.id || null)
+    })
+  }, [])
 
   const handleSubmit = async () => {
     if (!rating) { setError('Please select a star rating'); return }
     if (!name.trim()) { setError('Please enter your name'); return }
-    if (!body.trim()) { setError('Please write a review'); return }
+    if (body.trim().length < 10) { setError('Please write at least 10 characters'); return }
 
     setLoading(true)
     setError('')
 
     const { error: err } = await supabase.from('reviews').insert({
       pro_id: proId,
+      reviewer_id: userId || null,
       reviewer_name: name.trim(),
       reviewer_company: company.trim() || null,
       project_type: projectType.trim() || null,
@@ -78,6 +86,7 @@ export default function ReviewForm({ proId, proName }: { proId: string, proName:
             <button
               key={star}
               type="button"
+              aria-label={`${star} star${star > 1 ? 's' : ''}`}
               onClick={() => setRating(star)}
               onMouseEnter={() => setHover(star)}
               onMouseLeave={() => setHover(0)}
@@ -93,32 +102,22 @@ export default function ReviewForm({ proId, proName }: { proId: string, proName:
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <label className="label">Your Name *</label>
-          <input
-            className="input"
-            placeholder="John Smith"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
+          <input className="input" placeholder="John Smith" value={name} onChange={e => setName(e.target.value)} />
         </div>
         <div>
           <label className="label">Company (optional)</label>
-          <input
-            className="input"
-            placeholder="Acme Productions"
-            value={company}
-            onChange={e => setCompany(e.target.value)}
-          />
+          <input className="input" placeholder="Acme Productions" value={company} onChange={e => setCompany(e.target.value)} />
         </div>
       </div>
 
       <div className="mb-4">
         <label className="label">Project Type (optional)</label>
-        <input
-          className="input"
-          placeholder="e.g. Corporate video, wedding, live event..."
-          value={projectType}
-          onChange={e => setProjectType(e.target.value)}
-        />
+        <select className="select" value={projectType} onChange={e => setProjectType(e.target.value)}>
+          <option value="">Select...</option>
+          {['Wedding Video & Photo','Commercial / Ad','Corporate Video','Event Coverage','Social Media Content','Documentary','Music Video','Real Estate','Broadcast / News','Film / Narrative','Other'].map(t => (
+            <option key={t}>{t}</option>
+          ))}
+        </select>
       </div>
 
       <div className="mb-4">
@@ -129,6 +128,7 @@ export default function ReviewForm({ proId, proName }: { proId: string, proName:
           value={body}
           onChange={e => setBody(e.target.value)}
         />
+        <p className="text-muted text-xs mt-1">{body.length} characters (minimum 10)</p>
       </div>
 
       {error && <p className="text-coral text-sm bg-coral/10 rounded-lg px-4 py-3 mb-4">{error}</p>}
@@ -141,10 +141,7 @@ export default function ReviewForm({ proId, proName }: { proId: string, proName:
         >
           {loading ? 'Submitting...' : 'Submit Review'}
         </button>
-        <button
-          onClick={() => setShowForm(false)}
-          className="text-muted text-sm hover:text-white transition-colors"
-        >
+        <button onClick={() => setShowForm(false)} className="text-muted text-sm hover:text-white transition-colors">
           Cancel
         </button>
       </div>

@@ -3,22 +3,22 @@ import { createServerSupabaseClient } from '@/lib/supabase-server'
 import ProCard from '@/components/ProCard'
 
 const CATEGORIES = [
-  { icon: '📹', name: 'Broadcast Camera', slug: 'broadcast-camera' },
-  { icon: '🎬', name: 'Director / Producer', slug: 'director-producer' },
-  { icon: '📸', name: 'Photography', slug: 'photography' },
-  { icon: '💒', name: 'Wedding Video & Photo', slug: 'wedding' },
-  { icon: '🎙️', name: 'Audio Engineering', slug: 'audio-engineering' },
-  { icon: '✂️', name: 'Video Editing / Post', slug: 'video-editing' },
-  { icon: '📱', name: 'Social Media Creator', slug: 'social-media' },
-  { icon: '🎨', name: 'Graphic Artist / Motion', slug: 'graphic-artist' },
-  { icon: '🚁', name: 'Drone / Aerial', slug: 'drone-aerial' },
-  { icon: '🎞️', name: 'Cinematography', slug: 'cinematography' },
-  { icon: '💡', name: 'Lighting / Gaffer', slug: 'lighting' },
-  { icon: '📡', name: 'Live Streaming', slug: 'live-streaming' },
-  { icon: '🎵', name: 'Music / Composer', slug: 'music-composer' },
-  { icon: '🖥️', name: 'Web / Digital Media', slug: 'web-digital' },
-  { icon: '💄', name: 'Hair / Makeup', slug: 'hair-makeup' },
-  { icon: '🎭', name: 'Casting / Talent', slug: 'casting-talent' },
+  { icon: '📹', name: 'Broadcast Camera', specialty: 'Broadcast Camera' },
+  { icon: '🎬', name: 'Director / Producer', specialty: 'Director / Producer' },
+  { icon: '📸', name: 'Photography', specialty: 'Photography' },
+  { icon: '💒', name: 'Wedding Video & Photo', specialty: 'Wedding Video & Photo' },
+  { icon: '🎙️', name: 'Audio Engineering', specialty: 'Audio Engineering' },
+  { icon: '✂️', name: 'Video Editing / Post', specialty: 'Video Editing / Post' },
+  { icon: '📱', name: 'Social Media Creator', specialty: 'Social Media Creator' },
+  { icon: '🎨', name: 'Graphic Artist / Motion', specialty: 'Graphic Artist / Motion' },
+  { icon: '🚁', name: 'Drone / Aerial', specialty: 'Drone / Aerial' },
+  { icon: '🎞️', name: 'Cinematography', specialty: 'Cinematography' },
+  { icon: '💡', name: 'Lighting / Gaffer', specialty: 'Lighting / Gaffer' },
+  { icon: '📡', name: 'Live Streaming', specialty: 'Live Streaming' },
+  { icon: '🎵', name: 'Music / Composer', specialty: 'Music / Composer' },
+  { icon: '🖥️', name: 'Web / Digital Media', specialty: 'Web / Digital Media' },
+  { icon: '💄', name: 'Hair / Makeup', specialty: 'Hair / Makeup' },
+  { icon: '🎭', name: 'Casting / Talent', specialty: 'Casting / Talent' },
 ]
 
 export default async function Home() {
@@ -68,9 +68,9 @@ export default async function Home() {
           </p>
 
           {/* Search */}
-          <div className="bg-white/5 border border-teal/30 rounded-xl p-3 flex flex-col md:flex-row gap-2 max-w-3xl mx-auto backdrop-blur-sm mb-6">
-            <input className="input flex-1" placeholder="Director, wedding photographer, audio engineer..." />
-            <select className="select md:w-48">
+          <form action="/browse" method="GET" className="bg-white/5 border border-teal/30 rounded-xl p-3 flex flex-col md:flex-row gap-2 max-w-3xl mx-auto backdrop-blur-sm mb-6">
+            <input name="q" className="input flex-1" placeholder="Director, wedding photographer, audio engineer..." />
+            <select name="city" className="select md:w-48">
               <option value="">All Cities</option>
               <option>Tallahassee, FL</option>
               <option>Pensacola, FL</option>
@@ -81,13 +81,21 @@ export default async function Home() {
               <option>New Orleans, LA</option>
               <option>Baton Rouge, LA</option>
             </select>
-            <Link href="/browse" className="btn-primary text-center">🔍 Search</Link>
-          </div>
+            <button type="submit" className="btn-primary text-center">🔍 Search</button>
+          </form>
 
           {/* Quick tags */}
           <div className="flex flex-wrap gap-2 justify-center mb-12">
-            {['📹 Broadcast Camera','🎬 Director','📸 Wedding Photo','🎙️ Audio','🎨 Graphic Artist','📱 Social Media','✂️ Video Editor'].map(t => (
-              <Link key={t} href="/browse" className="font-condensed text-xs tracking-wider uppercase px-3 py-1.5 border border-white/15 rounded-full text-muted hover:border-teal hover:text-teal transition-colors">{t}</Link>
+            {[
+              { label: '📹 Broadcast Camera', specialty: 'Broadcast Camera' },
+              { label: '🎬 Director', specialty: 'Director / Producer' },
+              { label: '📸 Wedding Photo', specialty: 'Wedding Video & Photo' },
+              { label: '🎙️ Audio', specialty: 'Audio Engineering' },
+              { label: '🎨 Graphic Artist', specialty: 'Graphic Artist / Motion' },
+              { label: '📱 Social Media', specialty: 'Social Media Creator' },
+              { label: '✂️ Video Editor', specialty: 'Video Editing / Post' },
+            ].map(t => (
+              <Link key={t.label} href={`/browse?specialty=${encodeURIComponent(t.specialty)}`} className="font-condensed text-xs tracking-wider uppercase px-3 py-1.5 border border-white/15 rounded-full text-muted hover:border-teal hover:text-teal transition-colors">{t.label}</Link>
             ))}
           </div>
 
@@ -118,8 +126,8 @@ export default async function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {CATEGORIES.map(cat => (
               <Link
-                key={cat.slug}
-                href={`/browse?specialty=${cat.slug}`}
+                key={cat.specialty}
+                href={`/browse?specialty=${encodeURIComponent(cat.specialty)}`}
                 className="card p-4 text-center hover:border-teal/40 hover:-translate-y-1 transition-all duration-200 group"
               >
                 <div className="text-3xl mb-2">{cat.icon}</div>
