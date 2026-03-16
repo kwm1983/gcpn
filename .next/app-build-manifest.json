@@ -26,14 +26,6 @@
       "static/chunks/38-1d94ec9114067631.js",
       "static/chunks/app/auth/page-4e2558029e4a68a4.js"
     ],
-    "/page": [
-      "static/chunks/webpack-91b2d14d0f678b80.js",
-      "static/chunks/fd9d1056-102d72fa9077ffd4.js",
-      "static/chunks/23-240cb1b9ce2617d3.js",
-      "static/chunks/main-app-748200735a742f11.js",
-      "static/chunks/231-c2d02349eda29423.js",
-      "static/chunks/app/page-44c9054fd65fe222.js"
-    ],
     "/dashboard/page": [
       "static/chunks/webpack-91b2d14d0f678b80.js",
       "static/chunks/fd9d1056-102d72fa9077ffd4.js",
@@ -50,6 +42,14 @@
       "static/chunks/main-app-748200735a742f11.js",
       "static/chunks/38-1d94ec9114067631.js",
       "static/chunks/app/post-job/page-9ea31cf82ddfaad1.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-91b2d14d0f678b80.js",
+      "static/chunks/fd9d1056-102d72fa9077ffd4.js",
+      "static/chunks/23-240cb1b9ce2617d3.js",
+      "static/chunks/main-app-748200735a742f11.js",
+      "static/chunks/231-c2d02349eda29423.js",
+      "static/chunks/app/page-44c9054fd65fe222.js"
     ],
     "/profile/[id]/page": [
       "static/chunks/webpack-91b2d14d0f678b80.js",
