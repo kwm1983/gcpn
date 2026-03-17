@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Turnstile from '@/components/Turnstile'
 
 export default function HireForm({ proName, proEmail }: { proName: string, proEmail: string }) {
   const [open, setOpen] = useState(false)
@@ -10,6 +11,7 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
   const [date, setDate] = useState('')
   const [budget, setBudget] = useState('')
   const [message, setMessage] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -17,6 +19,10 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
   const handleSubmit = async () => {
     if (!name.trim() || !email.trim() || !message.trim()) {
       setError('Please fill in your name, email, and message')
+      return
+    }
+    if (!turnstileToken) {
+      setError('Please complete the human verification')
       return
     }
     setLoading(true)
@@ -27,18 +33,11 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          proName,
-          proEmail,
-          fromName: name,
-          fromEmail: email,
-          fromPhone: phone,
-          projectType,
-          date,
-          budget,
-          message,
+          proName, proEmail,
+          fromName: name, fromEmail: email, fromPhone: phone,
+          projectType, date, budget, message, turnstileToken,
         }),
       })
-
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Failed to send')
       setSuccess(true)
@@ -109,25 +108,15 @@ export default function HireForm({ proName, proEmail }: { proName: string, proEm
         </div>
         <div>
           <label className="label">Message *</label>
-          <textarea
-            className="input resize-none min-h-[80px]"
-            placeholder="Describe your project..."
-            value={message}
-            onChange={e => setMessage(e.target.value)}
-          />
+          <textarea className="input resize-none min-h-[80px]" placeholder="Describe your project..." value={message} onChange={e => setMessage(e.target.value)} />
         </div>
+        <Turnstile onVerify={setTurnstileToken} />
         {error && <p className="text-coral text-sm bg-coral/10 rounded-lg px-4 py-3">{error}</p>}
         <div className="flex gap-3 mt-1">
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="btn-teal font-condensed tracking-widest uppercase px-6 py-2 flex-1"
-          >
+          <button onClick={handleSubmit} disabled={loading} className="btn-teal font-condensed tracking-widest uppercase px-6 py-2 flex-1">
             {loading ? 'Sending...' : 'Send Inquiry'}
           </button>
-          <button onClick={() => setOpen(false)} className="text-muted text-sm hover:text-white transition-colors">
-            Cancel
-          </button>
+          <button onClick={() => setOpen(false)} className="text-muted text-sm hover:text-white transition-colors">Cancel</button>
         </div>
       </div>
     </div>

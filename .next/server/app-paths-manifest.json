@@ -1,17 +1,17 @@
 {
-  "/api/contact/route": "app/api/contact/route.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/auth/callback/route": "app/auth/callback/route.js",
   "/page": "app/page.js",
+  "/api/contact/route": "app/api/contact/route.js",
   "/post-job/page": "app/post-job/page.js",
-  "/profile/[id]/page": "app/profile/[id]/page.js",
-  "/robots.txt/route": "app/robots.txt/route.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/auth/page": "app/auth/page.js",
-  "/about/page": "app/about/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/profile/[id]/page": "app/profile/[id]/page.js",
+  "/auth/callback/route": "app/auth/callback/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
   "/_not-found/page": "app/_not-found/page.js",
-  "/privacy/page": "app/privacy/page.js",
   "/browse/page": "app/browse/page.js",
+  "/about/page": "app/about/page.js",
   "/terms/page": "app/terms/page.js",
-  "/jobs/page": "app/jobs/page.js"
+  "/jobs/page": "app/jobs/page.js",
+  "/privacy/page": "app/privacy/page.js"
 }

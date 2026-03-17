@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReviewForm from '@/components/ReviewForm'
 import HireForm from '@/components/HireForm'
+import MessageForm from '@/components/MessageForm'
 
 export default async function ProfilePage({ params }: { params: { id: string } }) {
   const supabase = createServerSupabaseClient()
@@ -76,7 +77,7 @@ export default async function ProfilePage({ params }: { params: { id: string } }
 
             <div className="flex gap-2 pb-2">
               <HireForm proName={firstName} proEmail={pro.email || ''} />
-              <a href={`mailto:${pro.email || 'hello@gulfcoastproductionnetwork.com'}?subject=Project Inquiry from GCPN`} className="btn-outline">Message</a>
+              <MessageForm proName={firstName} proEmail={pro.email || ''} />
             </div>
           </div>
 

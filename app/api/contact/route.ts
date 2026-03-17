@@ -3,10 +3,29 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { proName, proEmail, fromName, fromEmail, fromPhone, projectType, date, budget, message } = body
+    const { proName, proEmail, fromName, fromEmail, fromPhone, projectType, date, budget, message, turnstileToken } = body
 
     if (!fromName || !fromEmail || !message || !proEmail) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+    }
+
+    // Verify Turnstile token
+    if (!turnstileToken) {
+      return NextResponse.json({ error: 'Please complete the human verification' }, { status: 400 })
+    }
+
+    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET_KEY,
+        response: turnstileToken,
+      }),
+    })
+
+    const verifyData = await verifyRes.json()
+    if (!verifyData.success) {
+      return NextResponse.json({ error: 'Human verification failed. Please try again.' }, { status: 400 })
     }
 
     const { Resend } = await import('resend')
