@@ -1,4 +1,4 @@
-// File: /Users/dbarnes/Downloads/gcpn/app/auth/callback/route.ts
+// File: /Users/kyle/Documents/gcpn/app/auth/callback/route.ts
 import * as entry from '../../../../../app/auth/callback/route.js'
 import type { NextRequest } from 'next/server.js'
 

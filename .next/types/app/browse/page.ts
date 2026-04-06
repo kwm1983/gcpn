@@ -1,4 +1,4 @@
-// File: /Users/dbarnes/Downloads/gcpn/app/browse/page.tsx
+// File: /Users/kyle/Documents/gcpn/app/browse/page.tsx
 import * as entry from '../../../../app/browse/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

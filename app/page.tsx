@@ -219,6 +219,7 @@ export default async function Home() {
             { head: 'For Pros', links: [
               { label: 'Create Profile', href: '/auth?mode=signup&type=pro' },
               { label: 'Job Board', href: '/jobs' },
+              { label: 'Blog & Guides', href: '/blog' },
               { label: 'About GCPN', href: '/about' },
               { label: 'Contact Us', href: 'mailto:hello@gulfcoastproductionnetwork.com' },
             ]},
@@ -243,6 +244,7 @@ export default async function Home() {
           <span className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
             <Link href="mailto:support@gulfcoastproductionnetwork.com" className="hover:text-white transition-colors">Contact</Link>
           </span>

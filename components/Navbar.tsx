@@ -55,6 +55,7 @@ export default function Navbar() {
         {navLink('/jobs', 'Job Board')}
         {navLink('/post-job', 'Post a Job')}
         {navLink('/about', 'About')}
+        {navLink('/blog', 'Blog')}
       </div>
 
       {/* Auth buttons */}
@@ -96,6 +97,7 @@ export default function Navbar() {
           <Link href="/jobs" className="font-condensed tracking-widest uppercase text-sm text-muted hover:text-white py-2" onClick={() => setMenuOpen(false)}>Job Board</Link>
           <Link href="/post-job" className="font-condensed tracking-widest uppercase text-sm text-muted hover:text-white py-2" onClick={() => setMenuOpen(false)}>Post a Job</Link>
           <Link href="/about" className="font-condensed tracking-widest uppercase text-sm text-muted hover:text-white py-2" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link href="/blog" className="font-condensed tracking-widest uppercase text-sm text-muted hover:text-white py-2" onClick={() => setMenuOpen(false)}>Blog</Link>
           {user ? (
             <>
               <Link href="/dashboard" className="font-condensed tracking-widest uppercase text-sm text-teal py-2" onClick={() => setMenuOpen(false)}>Dashboard</Link>
